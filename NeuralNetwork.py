@@ -16,6 +16,8 @@ def get_results(data,features,X_train,X_test,y_train,y_test,x,y):
     X_train = scaler.transform(X_train)
     X_test = scaler.transform(X_test)
     mlp = MLPClassifier(hidden_layer_sizes=(6,6,6), max_iter=500)
+    print ("Datos MLP: "+str(mlp))
+    print ("\-------------/")
     mlp.fit(X_train, y_train)
 
     predictions = mlp.predict(X_test)
@@ -33,8 +35,23 @@ def get_results(data,features,X_train,X_test,y_train,y_test,x,y):
         print (line,file = f)
     f.close()
 
-    result = 0
+    lines = []
+    with open("global_results.csv") as f:
+        for row in csv.reader(f):
+            calc = str(row[0])+","+str(row[1])
+            lines.append(calc)
+    aux = 0
+    f = open('global_results.csv', 'w')
+    for i in range(0,len(lines)):
+        line =lines[aux] + ","+ str(predictions[aux])
+        aux += 1
+        print (line,file = f)
+    f.close()
 
+
+
+
+    result = 0
     with open("neural_results.csv") as f:
         total = 0
         for row in csv.reader(f):

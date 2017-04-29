@@ -36,6 +36,14 @@ def get_results(data,features,X_train,X_test,y_train,y_test,x,y):
         print(line, file=f)
     f.close()
 
+    aux = 0
+    f = open('global_results.csv', 'w')
+    for i, row in y_test.iteritems():
+        line = str(row) + "," + str(predictions[aux])
+        aux += 1
+        print(line, file=f)
+    f.close()
+
     result = 0
 
     with open("dt_results.csv") as f:
