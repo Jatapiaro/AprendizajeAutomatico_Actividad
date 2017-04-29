@@ -49,8 +49,6 @@ def get_results(data,features,X_train,X_test,y_train,y_test,x,y):
     f.close()
 
 
-
-
     result = 0
     with open("neural_results.csv") as f:
         total = 0
