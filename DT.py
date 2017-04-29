@@ -20,21 +20,13 @@ def visualize_tree(tree, feature_names):
              "produce visualization")
 
 
-def get_results(data,features):
-
-    y = data["Performance"]
-    x = data[features]
-
-    # Random split 60% of the data for training and 40% for test
-    X_train, X_test, y_train, y_test = train_test_split(x, y, train_size=0.60)
+def get_results(data,features,X_train,X_test,y_train,y_test,x,y):
 
     dt = DecisionTreeClassifier(min_samples_split=20, random_state=99)
     dt.fit(X_train, y_train)
 
     predictions = dt.predict(X_test)
-    print(predictions)
-    # print (y_test)
-    # print (data)
+    print("Desicion tree predictions: "+str(predictions))
 
     aux = 0
     f = open('dt_results.csv', 'w')
@@ -51,6 +43,7 @@ def get_results(data,features):
         for row in csv.reader(f):
             calc = float(row[0]) - float(row[1])
             total += (calc * calc)
-        print("Error cuadrático medio: " + str(0.5 * calc))
+        print("Error cuadrático medio(DT): " + str(0.5 * calc))
+        print("\n--------------")
         result = (calc*0.5)
     return result
