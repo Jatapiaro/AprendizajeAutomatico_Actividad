@@ -1,32 +1,10 @@
 # coding=utf-8
 from __future__ import print_function
-import os
-import pandas as pd
 from sklearn.tree import DecisionTreeClassifier,export_graphviz
 import subprocess
 from sklearn.model_selection import train_test_split
 import csv
 
-
-"""
-Read .csv file and return a pandas dataframe
-"""
-def read_data():
-    if os.path.exists("dataset.csv"):
-        print("File founded")
-        data = pd.read_csv("dataset.csv")
-    return data
-
-"""
-To enable scikit-learn to use our data we must encode
-the "names" (first column) to integers
-"""
-def preprocessing(data_frame,target_column):
-    data = data_frame.copy()
-    targets = data[target_column].unique()
-    map_to_int = {name: n for n, name in enumerate(targets)}
-    data["Target"] = data[target_column].replace(map_to_int)
-    return (data, targets)
 
 def visualize_tree(tree, feature_names):
     with open("desicion_tree.dot", 'w') as f:
@@ -42,12 +20,7 @@ def visualize_tree(tree, feature_names):
              "produce visualization")
 
 
-def get_results():
-    data = read_data()
-
-    features = list(data.columns[1:7])
-
-    # print (features)
+def get_results(data,features):
 
     y = data["Performance"]
     x = data[features]
